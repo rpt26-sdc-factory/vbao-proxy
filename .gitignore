@@ -31,6 +31,9 @@ images/
 about/
 
 ## Env variables ##
-.env
+*.pem
+*.cer
+*.sh
+*.env
 node_modules
 newrelic.js
