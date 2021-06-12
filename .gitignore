@@ -39,3 +39,4 @@ node_modules
 newrelic.js
 server/templates/services
 public/services
+server/service-config.json
