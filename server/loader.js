@@ -6,7 +6,6 @@ const fs = require('fs');
 const axios = require('axios');
 
 module.exports = (clientBundle, serverBundle, serviceConfig) => {
-  const temp = {};
   Object.keys(serviceConfig).map(async (serviceName) => {
     try {
       const api = serviceConfig[serviceName];
@@ -18,14 +17,17 @@ module.exports = (clientBundle, serverBundle, serviceConfig) => {
 
       const serverData = await axios.get(`${api}/server.js`);
       const serverFile = fs.createWriteStream(`${serverBundle}/${serviceName}.js`);
-      if (serverData.status === 200) serverFile.write(serverData.data, () => console.log('Wrote server file.'));
+      if (serverData.status === 200) {
+        serverFile.write(serverData.data, () => {
+          console.log('Wrote server file.');
+          console.log('Loading server');
+          serviceConfig[serviceName] = require(`../${serverBundle}/${serviceName}.js`);
+        });
+      }
       serverFile.end();
-
-      const componentFile = require(`../${clientBundle}/${serviceName}.js`);
-      temp[serviceName] = componentFile;
     } catch (err) {
       return console.error(err);
     }
   });
-  return temp;
+  return serviceConfig;
 };
