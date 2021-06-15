@@ -16,8 +16,6 @@ const clientBundles = './public/services';
 const serviceConfig = require('./service-config.json');
 const loader = require('./loader.js');
 
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
 const HTML = require('./templates/layout');
 const ComponentTags = require('./templates/app');
 const ScriptTags = require('./templates/scripts');
