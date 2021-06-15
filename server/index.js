@@ -24,6 +24,7 @@ const ComponentTags = require('./templates/app');
 const ScriptTags = require('./templates/scripts');
 
 const renderComponents = (components, props = {}) => Object.keys(components).map((component) => {
+  console.log(components);
   const componentElement = React.createElement(components[component], props);
   return ReactDOMServer.renderToString(componentElement);
 });
@@ -35,7 +36,10 @@ app.use(`/${process.env.LOADERIO}.txt`, express.static(path.join(__dirname, `../
 
 app.get('/:id', (req, res) => {
   const components = renderComponents(services, { course: req.params.id });
-  res.end(HTML(ComponentTags(...components), ScriptTags(Object.keys(services))));
+  const divs = ComponentTags(...components);
+  const scripts = ScriptTags(Object.keys(services));
+  console.log('SCRIPTS');
+  res.end(HTML(divs, scripts));
 });
 
 app.listen(PORT, () => {
