@@ -13,9 +13,8 @@ const PORT = 3000;
 if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 
 const clientBundles = './public/services';
-const serverBundles = './server/templates/services';
 const serviceConfig = require('./service-config.json');
-const services = require('./loader.js')(clientBundles, serverBundles, serviceConfig);
+const loader = require('./loader.js');
 
 const React = require('react');
 const ReactDOMServer = require('react-dom/server');
@@ -23,22 +22,26 @@ const HTML = require('./templates/layout');
 const ComponentTags = require('./templates/app');
 const ScriptTags = require('./templates/scripts');
 
-const renderComponents = (components, props = {}) => Object.keys(components).map((component) => {
-  console.log(components);
-  const componentElement = React.createElement(components[component], props);
-  return ReactDOMServer.renderToString(componentElement);
-});
+const renderComponents = (components) => {
+  const services = {};
+  components.forEach((component) => {
+    services[Object.keys(component)[0]] = component[Object.keys(component)[0]];
+  });
+  return services;
+};
 
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(`/${process.env.LOADERIO}.txt`, express.static(path.join(__dirname, `../${process.env.LOADERIO}.txt`)));
 
-app.get('/:id', (req, res) => {
-  const components = renderComponents(services, { course: req.params.id });
-  const divs = ComponentTags(...components);
-  const scripts = ScriptTags(Object.keys(services));
-  console.log('SCRIPTS');
+app.get('/favicon.ico', (req, res) => res.status(204).end());
+
+app.get('/:id', async (req, res) => {
+  const data = await loader(clientBundles, serviceConfig, req.params.id);
+  const services = renderComponents(data);
+  const divs = ComponentTags(services);
+  const scripts = ScriptTags(services);
   res.end(HTML(divs, scripts));
 });
 
