@@ -9,7 +9,9 @@
     "test-1": "k6 --env RPS=1 run __stress_tests__/stress_test.js",
     "test-10": "k6 --env RPS=10 run __stress_tests__/stress_test.js",
     "test-100": "k6 --env RPS=100 run __stress_tests__/stress_test.js",
-    "test-1000": "k6 --env RPS=1000 run __stress_tests__/stress_test.js"
+    "test-1000": "k6 --env RPS=1000 run __stress_tests__/stress_test.js",
+    "prod-start": "pm2 start ./server/index.js",
+    "prod-stop": "pm2 stop ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -32,6 +34,7 @@
     "morgan": "^1.10.0",
     "newrelic": "^7.5.0",
     "pg": "^8.6.0",
+    "pm2": "^5.1.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2"
   },
