@@ -15,6 +15,7 @@ if (process.env.NODE_ENV !== 'production') require('dotenv').config();
 const clientBundles = './public/services';
 const serviceConfig = require('./service-config.json');
 const loader = require('./loader.js');
+const loaderio = require('../__stress_tests__/loaderio.js');
 
 const HTML = require('./templates/layout');
 const ComponentTags = require('./templates/app');
@@ -34,6 +35,7 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 app.use(`/${process.env.LOADERIO}.txt`, express.static(path.join(__dirname, `../${process.env.LOADERIO}.txt`)));
 
 app.get('/favicon.ico', (req, res) => res.status(204).end());
+app.get('/loaderio', loaderio);
 
 app.get('/:id', async (req, res) => {
   const data = await loader(clientBundles, serviceConfig, req.params.id);
