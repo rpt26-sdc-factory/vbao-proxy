@@ -3,6 +3,7 @@
 /* eslint-disable import/order */
 /* eslint-disable no-console */
 /* eslint-disable global-require */
+require('newrelic');
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
