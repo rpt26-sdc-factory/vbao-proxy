@@ -1,5 +1,8 @@
 **/.classpath
 **/.dockerignore
+**/.pem
+**/.sh
+**/.cer
 **/.env
 **/.git
 **/.gitignore
@@ -22,3 +25,4 @@
 **/secrets.dev.yaml
 **/values.dev.yaml
 README.md
+newrelic.js

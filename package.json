@@ -5,7 +5,13 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon ./server/index.js",
-    "start": "node ./server/index.js"
+    "start": "node ./server/index.js",
+    "test-1": "k6 --env RPS=1 run __stress_tests__/stress_test.js",
+    "test-10": "k6 --env RPS=10 run __stress_tests__/stress_test.js",
+    "test-100": "k6 --env RPS=100 run __stress_tests__/stress_test.js",
+    "test-1000": "k6 --env RPS=1000 run __stress_tests__/stress_test.js",
+    "prod-start": "pm2 start ./server/index.js",
+    "prod-stop": "pm2 stop ./server/index.js"
   },
   "repository": {
     "type": "git",
@@ -19,13 +25,21 @@
   },
   "homepage": "https://github.com/Ingenuity-rpt26/shane-proxy#readme",
   "dependencies": {
+    "axios": "^0.21.1",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "mongoose": "^5.12.1",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "newrelic": "^7.5.0",
+    "pg": "^8.6.0",
+    "pm2": "^5.1.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "redis": "^3.1.2"
   },
   "devDependencies": {
-    "dotenv": "^8.2.0",
     "eslint": "^7.22.0",
     "eslint-config-airbnb": "^18.2.1",
     "eslint-plugin-import": "^2.22.1",

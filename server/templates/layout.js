@@ -1,3 +1,4 @@
+module.exports = (services, scripts) => `
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,7 +7,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
   <link rel="shortcut icon" href="favicon-32x32.png" type="image/x-icon">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <script src="index.js"></script>
+  <script src="index.js" defer></script>
   <link rel="stylesheet" href="proxy.css" defer>
   <title>Coursera | Build Skills with Online Courses from Top Institutions</title>
 </head>
@@ -22,6 +23,7 @@
         <button class=explore-button>
           <span>Explore</span>
           <span>
+            <!-- <img src="reverseCarrot.svg" alt="down arrow"> -->
               <svg class="down-arrow-icon" viewBox="0 0 32 32" width="9" height="9"><path fill="#fff" d="M30.054 14.429l-13.25 13.232q-0.339 0.339-0.804 0.339t-0.804-0.339l-13.25-13.232q-0.339-0.339-0.339-0.813t0.339-0.813l2.964-2.946q0.339-0.339 0.804-0.339t0.804 0.339l9.482 9.482 9.482-9.482q0.339-0.339 0.804-0.339t0.804 0.339l2.964 2.946q0.339 0.339 0.339 0.813t-0.339 0.813z"></path></svg>
           </span>
         </button>
@@ -58,9 +60,8 @@
       </nav>
     </div>
   </div>
-  <div id="about" class="spaced"></div>
-  <div id="instructors" class="spaced"></div>
-  <div id="syllabus"></div>
-  <div id="reviews"></div>
+  ${services}
 </body>
+${scripts}
 </html>
+`;
